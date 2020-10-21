@@ -168,10 +168,8 @@ src_install() {
 	#	install
 	# Again, verify the Makefiles!  We don't want anything falling
 	# outside of ${D}.
-	# dodir /usr/share/eselect/modules/
-	# echo "${S} -> ${D}"
+
 	insinto /usr/share/eselect/modules
 	doins "${S}/uImage.eselect"
 }
-
 
