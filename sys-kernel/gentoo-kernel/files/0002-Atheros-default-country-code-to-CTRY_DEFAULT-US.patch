@@ -1,0 +1,25 @@
+From b2e4c9b2d617169ede66a1ecf2c11293ad0724cf Mon Sep 17 00:00:00 2001
+From: Luke McHale <luke.mchale@protonmail.com>
+Date: Wed, 12 Aug 2020 21:04:17 +0000
+Subject: [PATCH] Atheros default country code to CTRY_DEFAULT (US).
+
+---
+ drivers/net/wireless/ath/regd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/ath/regd.c b/drivers/net/wireless/ath/regd.c
+index bee9110..37ff46a 100644
+--- a/drivers/net/wireless/ath/regd.c
++++ b/drivers/net/wireless/ath/regd.c
+@@ -676,7 +676,7 @@ static void ath_regd_sanitize(struct ath_regulatory *reg)
+ 	if (reg->current_rd != COUNTRY_ERD_FLAG && reg->current_rd != 0)
+ 		return;
+ 	printk(KERN_DEBUG "ath: EEPROM regdomain sanitized\n");
+-	reg->current_rd = 0x64;
++	reg->current_rd = CTRY_DEFAULT;
+ }
+ 
+ static int __ath_regd_init(struct ath_regulatory *reg)
+-- 
+2.28.0
+

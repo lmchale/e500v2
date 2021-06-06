@@ -1,0 +1,50 @@
+From f69b12f09e67742efc73a1917480e1b45d56d256 Mon Sep 17 00:00:00 2001
+From: Luke McHale <luke.mchale@protonmail.com>
+Date: Mon, 10 Aug 2020 17:48:29 +0000
+Subject: [PATCH 1/2] gcc-8 patch to target proper mcpu flag for e500
+
+---
+ arch/powerpc/Makefile | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/arch/powerpc/Makefile b/arch/powerpc/Makefile
+index f310c32..1c0f330 100644
+--- a/arch/powerpc/Makefile
++++ b/arch/powerpc/Makefile
+@@ -12,7 +12,7 @@
+ # Rewritten by Cort Dougan and Paul Mackerras
+ #
+ 
+-HAS_BIARCH	:= $(call cc-option-yn, -m32)
++HAS_BIARCH	:= $(call cc-option-yn, -m32 -m64)
+ 
+ # Set default 32 bits cross compilers for vdso and boot wrapper
+ CROSS32_COMPILE ?=
+@@ -166,6 +166,7 @@ CFLAGS-$(CONFIG_PPC32)	+= $(call cc-option, $(MULTIPLEWORD))
+ 
+ CFLAGS-$(CONFIG_PPC32)	+= $(call cc-option,-mno-readonly-in-sdata)
+ 
++ifdef CONFIG_PPC64
+ ifdef CONFIG_PPC_BOOK3S_64
+ ifdef CONFIG_CPU_LITTLE_ENDIAN
+ CFLAGS-$(CONFIG_GENERIC_CPU) += -mcpu=power8
+@@ -177,6 +178,7 @@ endif
+ else
+ CFLAGS-$(CONFIG_GENERIC_CPU) += -mcpu=powerpc64
+ endif
++endif
+ 
+ ifdef CONFIG_FUNCTION_TRACER
+ CC_FLAGS_FTRACE := -pg
+@@ -206,7 +208,7 @@ ifdef CONFIG_PPC32
+ ifdef CONFIG_PPC_E500MC
+ CFLAGS-y += $(call cc-option,-mcpu=e500mc,-mcpu=powerpc)
+ else
+-CFLAGS-$(CONFIG_E500) += $(call cc-option,-mcpu=8540 -msoft-float,-mcpu=powerpc)
++CFLAGS-$(CONFIG_E500) += $(call cc-option,-mcpu=8548 -msoft-float,-mcpu=powerpc)
+ endif
+ endif
+ 
+-- 
+2.28.0
+
