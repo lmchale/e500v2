@@ -65,7 +65,7 @@ multilib_src_configure() {
 	# Make sure mpfr doesn't go probing toolchains it shouldn't
 	ECONF_SOURCE=${S} \
 		user_redefine_cc=yes \
-		econf $(use_enable static-libs static)
+		econf $(use_enable static-libs static) --disable-decimal-float
 }
 
 multilib_src_install_all() {
