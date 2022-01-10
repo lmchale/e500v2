@@ -35,7 +35,7 @@ SRC_URI="https://github.com/lmchale/uImage-eselect/archive/v0.2-alpha.tar.gz"
 # unpacked) inside ${WORKDIR}.  The default value for S is ${WORKDIR}/${P}
 # If you don't need to change it, leave the S= line out of the ebuild
 # to keep it tidy.
-#S="${WORKDIR}/uImage-eselect-0.1-alpha"
+S="${WORKDIR}/uImage-eselect-0.2-alpha"
 
 
 # License of the package.  This must match the name of file(s) in the
@@ -110,6 +110,6 @@ src_install() {
 	doins "${S}/uImage.eselect"
 
 	insinto /etc/kernel/postinst.d
-	doins "${S}/99-uImage.install"
+	doins "${S}/90-uImage.install"
 }
 
